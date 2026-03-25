@@ -1,5 +1,9 @@
 # Hugo configuration file
-title: My Site
+title: Asad Shahid
+baseURL: https://asadshahid04.github.io/asadshahid-blog/
+
+enableRobotsTXT: true
+enableGitInfo: true
 
 # import hextra as module
 module:
@@ -7,25 +11,27 @@ module:
     - path: github.com/imfing/hextra
 
 markup:
-  # allow raw html
   goldmark:
     renderer:
       unsafe: true
-
-  # enable hextra syntax highlight
   highlight:
     noClasses: false
 
+languages:
+  en:
+    languageName: English
+    weight: 1
+
 menu:
   main:
-    - name: Docs
-      pageRef: /docs
+    - name: Blog
+      pageRef: /blog
       weight: 1
+    - name: Projects
+      pageRef: /projects
+      weight: 2
     - name: About
       pageRef: /about
-      weight: 2
-    - name: Contact ↗
-      url: "https://github.com/imfing"
       weight: 3
     - name: Search
       weight: 4
@@ -33,24 +39,32 @@ menu:
         type: search
     - name: GitHub
       weight: 5
-      url: "https://github.com/imfing/hextra-starter-template"
+      url: "https://github.com/AsadShahid04"
       params:
         icon: github
-    - name: Twitter
+    - name: LinkedIn
       weight: 6
-      url: "https://twitter.com/"
+      url: "https://linkedin.com/in/asadshahid04"
       params:
-        icon: x-twitter
+        icon: linkedin
 
 params:
+  description: AI Infrastructure Engineer • UC Berkeley • Open Source Contributor
+
   navbar:
     displayTitle: true
     displayLogo: false
 
+  page:
+    width: normal
+
   footer:
-    displayCopyright: false
-    displayPoweredBy: true
+    displayCopyright: true
+    displayPoweredBy: false
 
   editURL:
-    enable: true
-    base: "https://github.com/imfing/hextra-starter-template/edit/main/content"
+    enable: false
+
+  blog:
+    list:
+      displayTags: true
