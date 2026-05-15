@@ -13,6 +13,5 @@ This site is where I write about what I'm learning and building.
 
 {{< cards >}}
   {{< card link="blog" title="Blog" subtitle="Technical deep dives on AI inference, distributed systems, and open source contributions." icon="pencil" >}}
-  {{< card link="projects" title="Projects" subtitle="Open source work, research, and things I've built." icon="code" >}}
   {{< card link="about" title="About" subtitle="More about me, my background, and what I'm working on." icon="user" >}}
 {{< /cards >}}

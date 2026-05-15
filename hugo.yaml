@@ -27,12 +27,9 @@ menu:
     - name: Blog
       pageRef: /blog
       weight: 1
-    - name: Projects
-      pageRef: /projects
-      weight: 2
     - name: About
       pageRef: /about
-      weight: 3
+      weight: 2
     - name: Search
       weight: 4
       params:
