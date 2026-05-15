@@ -14,7 +14,7 @@ If you've ever deployed a large language model in production, you know the feeli
 
 NVIDIA's new paper, *AIConfigurator: Lightning-Fast Configuration Optimization for Multi-Framework LLM Serving* ([arXiv:2601.06288](https://arxiv.org/abs/2601.06288)), argues that this default-and-pray approach leaves massive performance on the table — up to 40–50% for some models. Their solution? A system that finds near-optimal serving configurations in about 30 seconds, without spinning up a single GPU for profiling.
 
-![Figure 1: Pareto frontiers for Qwen3-235B on 64 H200 GPUs](/images/aiconfigurator-fig1.png)
+![Figure 1: Pareto frontiers for Qwen3-235B on 64 H200 GPUs](aiconfigurator-fig1.png)
 
 ## The Problem: Configuration Explosion
 
@@ -33,7 +33,7 @@ The traditional approach is grid search or manual benchmarking: spin up the clus
 
 AIConfigurator's core insight is that you don't need to run full inference to predict how a configuration will perform. Instead, you can **decompose** the inference pipeline into fundamental operations, benchmark those operations once in isolation, and then **compose** end-to-end performance estimates analytically.
 
-![Figure 2: AIConfigurator workflow](/images/aiconfigurator-fig2.png)
+![Figure 2: AIConfigurator workflow](aiconfigurator-fig2.png)
 
 The system follows a five-step workflow:
 
@@ -61,7 +61,7 @@ The final step produces **production-ready launch configurations** for the targe
 
 A distinctive feature of AIConfigurator is its ability to model three distinct serving architectures, not just the standard single-mode setup.
 
-![Figure 3: Three serving modes](/images/aiconfigurator-fig3.png)
+![Figure 3: Three serving modes](aiconfigurator-fig3.png)
 
 ### Static Batching
 
