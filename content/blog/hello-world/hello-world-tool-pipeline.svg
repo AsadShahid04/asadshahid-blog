@@ -21,11 +21,11 @@
   
   <!-- Flow arrows -->
   <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#76B900"/>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <polygon points="0,0 10,5 0,10" fill="#76B900"/>
     </marker>
-    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#cc0000"/>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <polygon points="0,0 10,5 0,10" fill="#cc0000"/>
     </marker>
   </defs>
   
@@ -35,7 +35,7 @@
   
   <!-- Problem scenario: tool_choice=required -->
   <rect x="130" y="240" width="500" height="120" fill="#fff5f5" stroke="#cc0000" stroke-width="2" rx="4" stroke-dasharray="4,4"/>
-  <text x="380" y="265" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#cc0000" font-weight="bold">L Bug: tool_choice="required" with format-aware parser</text>
+  <text x="380" y="265" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#cc0000" font-weight="bold">Bug: tool_choice="required" with format-aware parser</text>
   
   <rect x="160" y="280" width="200" height="60" fill="#ffe8e8" stroke="#cc0000" stroke-width="1.5" rx="3"/>
   <text x="260" y="300" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Incorrect Path</text>
@@ -50,6 +50,6 @@
   <text x="512" y="332" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">format-aware parser set</text>
   
   <!-- Input/Output labels -->
-  <text x="120" y="100" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666" font-style="italic">Model output stream ’</text>
-  <text x="660" y="200" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666" font-style="italic">’ Structured calls</text>
+  <text x="120" y="100" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666" font-style="italic">Model output stream</text>
+  <text x="660" y="200" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666" font-style="italic">Structured calls</text>
 </svg>
