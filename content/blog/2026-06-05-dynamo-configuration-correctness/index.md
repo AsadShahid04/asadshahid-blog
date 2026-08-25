@@ -47,9 +47,6 @@ NIXL operates on **memory segments**, identified by their canonical type name:
 
 These are the C++-level segment names. NIXL historically also accepted `"cuda"` and `"cpu"` as lowercase aliases. The problem: Dynamo's `nixl_connect` Python module has been passing the aliases, not the canonical names.
 
-![Disaggregated Communication Stack](img-disagg-comm-stack.svg)
-*Figure 2: NIXL's position in Dynamo's disaggregated communication stack — [ai-dynamo/dynamo](https://github.com/ai-dynamo/dynamo)*
-
 `nixl_connect` wraps the NIXL C extension and provides the Python-facing API for KV transfer. Its `DeviceKind` enum represents the relevant device types, and `__str__` returns the legacy strings:
 
 ```python
