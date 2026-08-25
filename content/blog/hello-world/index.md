@@ -27,7 +27,7 @@ When I started contributing to Dynamo, I was drawn to a specific corner of this 
 
 My first contribution ([#6821](https://github.com/ai-dynamo/dynamo/issues/6821)) fixed a bug where `tool_choice: "required"` caused tool calls to leak as raw XML instead of being parsed into structured function calls. A 100% failure rate for non-JSON parsers. The fix was surgical — prioritize format-aware parsers over the default JSON mode when a parser is configured — but understanding *why* the bug existed required tracing through the entire streaming pipeline:
 
-{{< figure src="/blog/hello-world-tool-pipeline.svg" alt="Tool call streaming pipeline showing preprocessor, jail, parser, and aggregator" caption="The tool call streaming pipeline. Model output flows through preprocessor → jail → parser → aggregator. The bug: when `tool_choice=required` was set with a format-aware parser configured, the system incorrectly routed to JSON mode, causing raw XML to leak instead of being parsed into structured function calls. The fix prioritizes the configured parser when a format-aware parser is present." >}}
+{{< figure src="hello-world-tool-pipeline.svg" alt="Tool call streaming pipeline showing preprocessor, jail, parser, and aggregator" caption="The tool call streaming pipeline. Model output flows through preprocessor → jail → parser → aggregator. The bug: when `tool_choice=required` was set with a format-aware parser configured, the system incorrectly routed to JSON mode, causing raw XML to leak instead of being parsed into structured function calls. The fix prioritizes the configured parser when a format-aware parser is present." >}}
 
 That experience taught me something: **you don't really understand a system until you've fixed a bug in it.**
 
