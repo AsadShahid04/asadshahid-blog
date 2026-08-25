@@ -5,7 +5,7 @@ toc: false
 
 ## Hey, I'm Asad 👋
 
-I'm a senior at **UC Berkeley** studying Statistics & Data Science, currently interning as a Software Engineer at **SanDisk (Western Digital)**. I'm an open source contributor to [**NVIDIA Dynamo**](https://github.com/ai-dynamo/dynamo) — the distributed LLM serving platform powering Perplexity, Together AI, Voyage AI, and Groq.
+I'm a senior at **UC Berkeley** studying Statistics & Data Science, graduating December 2026. I recently interned as a Software Engineer at **Tesla**, and I'm an open source contributor to [**NVIDIA Dynamo**](https://github.com/ai-dynamo/dynamo) — the distributed LLM serving platform powering Perplexity, Together AI, Voyage AI, and Groq — and [**NVIDIA Grove**](https://github.com/ai-dynamo/grove), NVIDIA's Kubernetes GPU-scheduling operator.
 
 I care deeply about **AI inference infrastructure** — the systems that make large language models fast, reliable, and economically viable at scale.
 
