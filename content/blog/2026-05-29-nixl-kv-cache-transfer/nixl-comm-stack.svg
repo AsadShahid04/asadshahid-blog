@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="500" viewBox="0 0 700 500">
+  <!-- Layer labels -->
+  <text x="20" y="100" font-family="Arial, sans-serif" font-size="14" fill="#76B900" font-weight="bold">Layer 1:</text>
+  <text x="20" y="116" font-family="Arial, sans-serif" font-size="14" fill="#76B900">Inference</text>
+  <text x="20" y="132" font-family="Arial, sans-serif" font-size="14" fill="#76B900">Backends</text>
+  
+  <text x="20" y="205" font-family="Arial, sans-serif" font-size="14" fill="#76B900" font-weight="bold">Layer 2:</text>
+  <text x="20" y="221" font-family="Arial, sans-serif" font-size="14" fill="#76B900">Dynamo</text>
+  <text x="20" y="237" font-family="Arial, sans-serif" font-size="14" fill="#76B900">Wrapper</text>
+  
+  <text x="20" y="300" font-family="Arial, sans-serif" font-size="14" fill="#76B900" font-weight="bold">Layer 3:</text>
+  <text x="20" y="316" font-family="Arial, sans-serif" font-size="14" fill="#76B900">NIXL</text>
+  <text x="20" y="332" font-family="Arial, sans-serif" font-size="14" fill="#76B900">Core</text>
+  
+  <text x="20" y="405" font-family="Arial, sans-serif" font-size="14" fill="#76B900" font-weight="bold">Layer 4:</text>
+  <text x="20" y="421" font-family="Arial, sans-serif" font-size="14" fill="#76B900">Hardware</text>
+  <text x="20" y="437" font-family="Arial, sans-serif" font-size="14" fill="#76B900">Transport</text>
+  
+  <!-- Layer 1: Inference Backends -->
+  <rect x="100" y="80" width="200" height="60" fill="#f5f5f5" stroke="#1e1e1e" stroke-width="2" rx="4"/>
+  <text x="200" y="106" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Prefill Worker</text>
+  <text x="200" y="128" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666">TRT-LLM / vLLM / SGLang</text>
+  <text x="200" y="66" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">KV cache in GPU VRAM</text>
+  
+  <rect x="400" y="80" width="200" height="60" fill="#f5f5f5" stroke="#1e1e1e" stroke-width="2" rx="4"/>
+  <text x="500" y="106" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Decode Worker</text>
+  <text x="500" y="128" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666">TRT-LLM / vLLM / SGLang</text>
+  <text x="500" y="66" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">KV cache in GPU VRAM</text>
+  
+  <!-- Layer 2: nixl_connect -->
+  <rect x="100" y="180" width="500" height="50" fill="#f0f8e8" stroke="#76B900" stroke-width="2" rx="4"/>
+  <text x="350" y="211" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#1e1e1e" font-weight="bold">nixl_connect (Python wrapper)</text>
+  
+  <!-- Layer 3: NIXL Library -->
+  <rect x="100" y="270" width="500" height="60" fill="#e8f5d8" stroke="#76B900" stroke-width="2" rx="4"/>
+  <text x="350" y="295" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#1e1e1e" font-weight="bold">NIXL Library</text>
+  <text x="350" y="316" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#1e1e1e">Registered segments " READ / WRITE operations</text>
+  
+  <!-- Layer 4: Transport -->
+  <rect x="100" y="370" width="500" height="80" fill="#e8e8e8" stroke="#1e1e1e" stroke-width="2" rx="4"/>
+  <text x="350" y="395" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Transport Plugins</text>
+  <text x="350" y="415" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#1e1e1e">NVLink (same node) " UCX/RDMA InfiniBand/RoCE (cross-node)</text>
+  <text x="350" y="435" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#1e1e1e">cuda_copy (host staging) " TCP (fallback)</text>
+  
+  <!-- Connecting lines -->
+  <line x1="200" y1="140" x2="200" y2="180" stroke="#666" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="500" y1="140" x2="500" y2="180" stroke="#666" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="350" y1="230" x2="350" y2="270" stroke="#76B900" stroke-width="2"/>
+  <line x1="350" y1="330" x2="350" y2="370" stroke="#76B900" stroke-width="2"/>
+</svg>
