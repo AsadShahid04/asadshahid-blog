@@ -33,7 +33,7 @@ The traditional approach is grid search or manual benchmarking: spin up the clus
 
 AIConfigurator's core insight is that you don't need to run full inference to predict how a configuration will perform. Instead, you can **decompose** the inference pipeline into fundamental operations, benchmark those operations once in isolation, and then **compose** end-to-end performance estimates analytically.
 
-![Figure 2: AIConfigurator workflow](aiconfigurator-fig2.png)
+{{< figure src="aiconfigurator-workflow.svg" alt="AIConfigurator five-step workflow: PerfDatabase, TaskRunner, InferenceSession, Pareto Analyzer, Generator" caption="The AIConfigurator workflow takes ~30 seconds (CPU-only) to produce optimal Dynamo launch configurations. The system models three distinct serving architectures: Static Batching (fixed batch sizes, simple), Aggregated/Continuous Batching (prefill/decode share GPU, models interference), and Disaggregated Prefill/Decode (separate GPU pools, models KV transfer overhead)." >}}
 
 The system follows a five-step workflow:
 

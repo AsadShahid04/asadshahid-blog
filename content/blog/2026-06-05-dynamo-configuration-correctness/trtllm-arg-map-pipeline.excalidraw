@@ -1,0 +1,96 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "type": "rectangle",
+      "id": "user-yaml",
+      "x": 80,
+      "y": 60,
+      "width": 140,
+      "height": 50,
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "backgroundColor": "#e8f5d8",
+      "strokeColor": "#76B900"
+    },
+    {
+      "type": "text",
+      "id": "yaml-text",
+      "x": 150,
+      "y": 80,
+      "width": 80,
+      "height": 20,
+      "text": "User YAML",
+      "fontSize": 13,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "strokeColor": "#1e1e1e"
+    },
+    {
+      "type": "rectangle",
+      "id": "mutation-box",
+      "x": 50,
+      "y": 145,
+      "width": 520,
+      "height": 180,
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "dashed",
+      "roughness": 0,
+      "opacity": 100,
+      "backgroundColor": "#fff5f5",
+      "strokeColor": "#cc0000"
+    },
+    {
+      "type": "text",
+      "id": "mutation-label",
+      "x": 310,
+      "y": 165,
+      "width": 280,
+      "height": 20,
+      "text": "Mutation Pipeline",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "strokeColor": "#cc0000"
+    },
+    {
+      "type": "rectangle",
+      "id": "llm-call",
+      "x": 200,
+      "y": 355,
+      "width": 220,
+      "height": 60,
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "backgroundColor": "#f5f5f5",
+      "strokeColor": "#1e1e1e"
+    },
+    {
+      "type": "text",
+      "id": "llm-text",
+      "x": 310,
+      "y": 375,
+      "width": 120,
+      "height": 20,
+      "text": "LLM(**arg_map)",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "strokeColor": "#1e1e1e"
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}
