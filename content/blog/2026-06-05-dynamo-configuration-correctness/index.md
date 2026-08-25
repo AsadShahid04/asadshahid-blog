@@ -51,8 +51,8 @@ These are the C++-level segment names. NIXL historically also accepted `"cuda"` 
 
 ```python
 class DeviceKind(IntEnum):
-    HOST = 0   # CPU memory
-    CUDA = 1   # GPU VRAM
+    HOST = ...   # CPU memory
+    CUDA = ...   # GPU VRAM
 
     def __str__(self) -> str:
         if self == DeviceKind.HOST:
