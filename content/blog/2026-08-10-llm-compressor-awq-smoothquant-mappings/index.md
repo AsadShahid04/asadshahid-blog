@@ -10,19 +10,19 @@ tags:
 author: Asad Shahid
 ---
 
-When you try to quantize a new multimodal model with AWQ or SmoothQuant and the compression library crashes with `KeyError: 'Qwen2_5_VLForConditionalGeneration'`, the root cause isn't a missing algorithm implementation. The algorithm exists. The model architecture is supported. What's missing is a **registry entry** — a mapping that tells the compressor which layers in this specific model class should be quantized and how.
+When I tried to quantize Qwen 2.5 vision-language models with AWQ earlier this summer, the compression library crashed with `KeyError: 'Qwen2_5_VLForConditionalGeneration'`. The error was confusing at first — the AWQ algorithm existed, the model architecture was clearly supported by vLLM, and Qwen2 models (the prior generation) worked fine. What was missing wasn't code. It was a **registry entry** — a mapping that tells the compressor which layers in this specific model class should be quantized and how.
 
-Last month I contributed [PR #2727](https://github.com/vllm-project/llm-compressor/pull/2727) to `llm-compressor`, adding five model classes to the AWQ and SmoothQuant registries. No new quantization logic. No architectural changes. Just teaching the library that `Qwen2_5_VLForConditionalGeneration` uses the same projection structure as `Qwen2ForCausalLM`, so it should be treated the same way.
+I contributed [PR #2727](https://github.com/vllm-project/llm-compressor/pull/2727) to `llm-compressor`, adding five model classes to the AWQ and SmoothQuant registries. No new quantization logic. No architectural changes. Just teaching the library that `Qwen2_5_VLForConditionalGeneration` uses the same projection structure as `Qwen2ForCausalLM`, so it should be treated the same way.
 
-This is how quantization registries quietly gate which models work — and why missing entries break more than you'd expect.
+This experience taught me how quantization registries quietly gate which models work — and why missing entries break more than you'd expect.
 
 <!--more-->
 
-## How llm-compressor Decides What to Quantize
+## How I Learned llm-compressor Uses Explicit Allowlists
 
-`llm-compressor` is the compression engine behind vLLM's quantization support. When you run AWQ or SmoothQuant on a model, the library doesn't inspect the PyTorch module graph to figure out which layers are "quantizable." Instead, it looks up the model's class name in a **registry** — a dictionary mapping model architectures to a list of layer names (or projection patterns) that should be compressed.
+When I started debugging [issue #1442](https://github.com/vllm-project/llm-compressor/issues/1442), I expected to find a bug in the AWQ quantization logic or a missing kernel for multimodal models. But the issue turned out to be architectural: `llm-compressor` doesn't inspect the PyTorch module graph to figure out which layers are "quantizable." Instead, it looks up the model's class name in a **registry** — a hardcoded dictionary mapping model architectures to lists of layer names that should be compressed.
 
-Here's the AWQ registry before this fix:
+Here's what the AWQ registry looked like before my fix:
 
 ```python
 # llm_compressor/transformers/compression/quantization_awq.py
@@ -52,19 +52,17 @@ if config is None:
 # Proceed to quantize the layers in config.targets
 ```
 
-If your model class isn't in the registry, compression fails — even if the model's architecture is nearly identical to one that *is* registered. The registry is an explicit allowlist.
+If your model class isn't in the registry, compression fails — even if the model's architecture is nearly identical to one that *is* registered. The registry is an explicit allowlist. That's what I was hitting: `Qwen2_5_VLForConditionalGeneration` wasn't in the list, so AWQ couldn't proceed.
 
-## The Problem: New Model Classes, Same Architecture
+## What I Found: New Model Classes, Same Architecture
 
-The issue reported in [#1442](https://github.com/vllm-project/llm-compressor/issues/1442) was straightforward: `Qwen2_5_VLForConditionalGeneration` — the new Qwen 2.5 vision-language model — wasn't in the AWQ registry. When users tried to quantize it, they hit:
+The frustrating part was that `Qwen2ForCausalLM` *was* registered. And when I traced through the model definitions in Hugging Face Transformers, the two models share the same projection layer structure — same attention and MLP projection names, same number of quantizable targets. The difference is that `Qwen2_5_VLForConditionalGeneration` adds vision encoders and cross-attention for multimodal inputs, but those additions don't change which language-model layers should be quantized.
 
 ```
 KeyError: 'Qwen2_5_VLForConditionalGeneration' not found in AWQ_MODEL_REGISTRY
 ```
 
-But `Qwen2ForCausalLM` *was* registered. And the two models share the same projection layer structure — same attention and MLP projection names, same number of quantizable targets. The difference is that `Qwen2_5_VLForConditionalGeneration` adds vision encoders and cross-attention for multimodal inputs, but those additions don't change which language-model layers should be quantized.
-
-From the registry's perspective, these are the same:
+From the registry's perspective, these models are the same:
 
 ```mermaid
 graph TD
@@ -80,11 +78,11 @@ graph TD
     style E fill:#fff4e1
 ```
 
-The green blocks — the language model projections — are identical. The yellow block is new, but it's not part of AWQ's target set anyway. Yet without an explicit registry entry for the new class, compression fails.
+The green blocks — the language model projections — are identical. The yellow block is new, but it's not part of AWQ's target set anyway. Yet without an explicit registry entry for the new class, compression fails. That's the gap I needed to close.
 
-## The Fix: Explicit Mappings for Multimodal and Newer Models
+## The Fix: Adding the Missing Mappings
 
-The solution is to add the missing model classes to the registries with the correct projection mappings. For AWQ, that meant adding:
+Once I understood the registry design, the solution was straightforward: add the missing model classes with the correct projection mappings. For AWQ, that meant:
 
 ```python
 AWQ_MODEL_REGISTRY = {
@@ -106,31 +104,29 @@ AWQ_MODEL_REGISTRY = {
 }
 ```
 
-For SmoothQuant, the same four models (plus `Qwen2_5_VLForConditionalGeneration`) were added. Some of these were already in the AWQ registry but missing from SmoothQuant — another form of the same registry-gap problem.
+For SmoothQuant, I added the same four models (plus `Qwen2_5_VLForConditionalGeneration`). Some of these were already in the AWQ registry but missing from SmoothQuant — another form of the same registry-gap problem.
 
-### Special Case: MoE Models
+### Special Case: MoE Models and Choosing a Strategy
 
-One model required a design choice: **Ernie4_5_MoeForCausalLM**, Baidu's mixture-of-experts architecture. MoE models have two quantization strategies in `llm-compressor`:
+One model required a design decision: **Ernie4_5_MoeForCausalLM**, Baidu's mixture-of-experts architecture. MoE models have two quantization strategies in `llm-compressor`:
 
 1. **Standard default mapping**: Treat expert projections like any other MLP layer — quantize `gate_proj`, `up_proj`, `down_proj` inside each expert.
 2. **QWEN_MOE-style MLP skipping**: Some MoE models (like older Qwen MoE variants) skip quantizing expert MLP layers because the router's load-balancing breaks with naïve per-expert quantization.
 
-The question: which strategy should `Ernie4_5_MoeForCausalLM` use?
+I didn't have direct access to Ernie 4.5 for testing, so I followed the precedent set by `Glm4MoeForCausalLM`, another MoE model in the registry that uses the **default mapping** (quantize everything). This felt like the safer choice for newer MoE architectures, which typically have routers that are stable under quantization. If Ernie 4.5's router turns out to be sensitive, users can override the config — but the default should be "quantize like a standard transformer."
 
-I followed the precedent set by `Glm4MoeForCausalLM`, another MoE model in the registry that uses the **default mapping** (quantize everything). This is the safer choice for newer MoE architectures, which typically have routers that are stable under quantization. If Ernie 4.5's router turns out to be sensitive, users can override the config — but the default should be "quantize like a standard transformer."
+## What I Learned: Why Registries Exist
 
-## Why Registries Exist: The Tradeoff Between Flexibility and Safety
+This contribution helped me understand why quantization libraries use explicit registries instead of dynamic layer discovery.
 
-You might ask: why have a registry at all? Why not just inspect the model's module graph at runtime, find all `nn.Linear` layers, and quantize those?
-
-The answer is that **quantization isn't uniform**. Not every linear layer in a transformer should be quantized the same way:
+**Quantization isn't uniform.** Not every linear layer in a transformer should be quantized the same way:
 
 - **Attention projections** (Q, K, V, O) are sensitive to quantization and benefit from per-channel scaling.
 - **MLP projections** (gate, up, down) are less sensitive and can tolerate coarser quantization.
 - **Embedding layers** and **layer norms** are typically *not* quantized, because their parameter counts are small and quantizing them degrades quality with minimal memory savings.
 - **LoRA adapters** and **cross-attention** in multimodal models often need special handling.
 
-A naive "quantize all `nn.Linear` layers" heuristic would break models. The registry is an explicit contract: "For this model class, these specific layers should be quantized with this strategy."
+A naive "quantize all `nn.Linear` layers" heuristic would break models. The registry is an explicit contract: "For this model class, these specific layers should be quantized with this strategy." That's why it exists — correctness over convenience.
 
 ```mermaid
 graph LR
@@ -146,9 +142,9 @@ graph LR
     style F fill:#e1f5e1
 ```
 
-The tradeoff is maintenance burden: every new model architecture needs an explicit registry entry. But the benefit is correctness: quantization only happens where it's known to be safe and effective.
+The tradeoff is maintenance burden: every new model architecture needs an explicit registry entry. But the benefit is correctness: quantization only happens where it's known to be safe and effective. You trade developer convenience for user safety.
 
-## What This Unlocks
+## What This Work Unlocks
 
 With these five model classes now registered, users can:
 
@@ -156,15 +152,15 @@ With these five model classes now registered, users can:
 2. **Use SmoothQuant on newer models** that were previously AWQ-only due to missing SmoothQuant entries.
 3. **Compress Ernie 4.5 MoE** with confidence that the default quantization strategy follows established MoE precedents.
 
-The change is pure registry data — no algorithmic logic, no new quantization kernels. But it's the difference between "this model works" and "this model crashes at compression time."
+The change is pure registry data — no algorithmic logic, no new quantization kernels. But it's the difference between "this model works" and "this model crashes at compression time." For users trying to deploy Qwen 2.5 multimodal models or newer architectures, this makes quantization just work.
 
-## The Bigger Picture: Model Support as a First-Class Maintenance Task
+## The Bigger Picture: Registry Maintenance as Infrastructure Work
 
-In fast-moving ML ecosystems, **model registry maintenance is infrastructure work**. When Hugging Face releases a new vision-language model or an open-source MoE variant, the first question users ask is: "Does this work with vLLM? Does it work with quantization?"
+This contribution reinforced something I've been learning through my Dynamo work: **in fast-moving ML ecosystems, model registry maintenance is infrastructure work**. When Hugging Face releases a new vision-language model or an open-source MoE variant, the first question users ask is: "Does this work with vLLM? Does it work with quantization?"
 
 If the answer is "yes, but you have to fork the compressor and add a registry entry yourself," adoption suffers. If the answer is "yes, out of the box," adoption accelerates.
 
-This PR is part of that maintenance surface: keeping the registry up to date with models that are landing in production. Not glamorous, not algorithmically novel, but critical for users who need these models to *just work*.
+My PR is part of that maintenance surface: keeping the registry up to date with models that are landing in production. Not glamorous, not algorithmically novel, but critical for users who need these models to *just work*.
 
 For quantization libraries like `llm-compressor`, the registry is a promise: "We've tested these models. We know which layers to compress. It's safe to proceed." Missing entries break that promise — not because the model is incompatible, but because no one's told the library it's compatible yet.
 
