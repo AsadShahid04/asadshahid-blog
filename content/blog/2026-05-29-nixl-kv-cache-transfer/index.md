@@ -116,3 +116,7 @@ Replaced `str(device_kind)` with a new `nixl_mem_type` property on the `DeviceKi
 **PR #9632 — fix: enforce user-config preservation in TRT-LLM worker arg_map** ([ai-dynamo/dynamo#9632](https://github.com/ai-dynamo/dynamo/pull/9632))
 
 Added a structural guardrail to `components/src/dynamo/trtllm/workers/llm_worker.py` that audits the final `arg_map` before it's passed to `LLM(...)`. After user configuration (YAML, `extra_engine_args`, `override_engine_args`) is applied, the worker snapshots user-supplied keys. If any downstream Dynamo-internal mutation overwrites a user-supplied value, a warning is logged identifying the field, the user value, and the replacement. This extends the existing `warn_override_collisions` pattern — already in use for `override_engine_args` — to the full initialization pipeline. The fix also restores the `return_perf_metrics` forwarding dropped in PR #9284, ensuring that `--publish-events-and-metrics` deployments correctly enable TRT-LLM's `PerfMetricsManager` and surface GPU timing, step metrics, and OTEL instrumentation. Three prior regressions in this area were each addressed with one-off conditional guards; this PR addresses the bug class rather than the latest instance.
+
+---
+
+*Read next: [Configuration Integrity in NVIDIA Dynamo: Fixing Two Silent Inference Failures](../2026-06-05-dynamo-configuration-correctness/) — a deeper dive into both the NIXL memory type issue and the TRT-LLM config preservation challenge.*
