@@ -152,7 +152,7 @@ If you've only ever trained models, inference will surprise you. If you've only 
 
 My work on Dynamo has been squarely in the inference camp — specifically the part where tool-call parsing has to happen **while the model is still generating tokens**. That's a serving problem, not a training problem. The streaming pipeline (preprocessor → jail → parser → aggregator) exists because inference is latency-critical and stateful in ways training never is.
 
-Understanding this split clarified something for me: when people talk about "model serving," they're often conflating two very different phases (prefill vs. decode) with very different bottlenecks (compute-bound vs. memory-bound). Dynamo's continuous batching scheduler exists because those phases interfere with each other when they share GPU cycles. [AIConfigurator](https://asadshahid.com/blog/aiconfigurator/), which I wrote about recently, models that interference analytically to find optimal configurations.
+Understanding this split clarified something for me: when people talk about "model serving," they're often conflating two very different phases (prefill vs. decode) with very different bottlenecks (compute-bound vs. memory-bound). Dynamo's continuous batching scheduler exists because those phases interfere with each other when they share GPU cycles. [AIConfigurator](../aiconfigurator/), which I wrote about recently, models that interference analytically to find optimal configurations.
 
 ## The Scaling Walls: Where Bottlenecks Come From
 
@@ -176,7 +176,7 @@ In this course, we'll learn to say which wall we're hitting **from measurements,
 
 At scale, configuration and lifecycle mistakes aren't just engineering oversights — they're strategic failures.
 
-A 40% throughput loss from suboptimal serving configurations ([AIConfigurator](https://asadshahid.com/blog/aiconfigurator/) found this was common) means 40% higher inference costs. For an organization spending millions annually on inference, that's hundreds of thousands of dollars left on the table.
+A 40% throughput loss from suboptimal serving configurations ([AIConfigurator](../aiconfigurator/) found this was common) means 40% higher inference costs. For an organization spending millions annually on inference, that's hundreds of thousands of dollars left on the table.
 
 Training a model without clear success criteria (Stage 0) means burning GPU-hours on runs that can't meet production SLOs, then discovering too late that you need to start over.
 

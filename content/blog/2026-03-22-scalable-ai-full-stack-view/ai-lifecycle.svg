@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="750" height="450" viewBox="0 0 750 450">
   <!-- Title -->
-  <text x="375" y="30" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#1e1e1e" font-weight="bold">AI Lifecycle: Stages 06</text>
+  <text x="375" y="30" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#1e1e1e" font-weight="bold">AI Lifecycle: Stages 0-6</text>
   
   <!-- Stage 0: Targets & Architecture -->
   <rect x="50" y="80" width="140" height="80" fill="#e8f5d8" stroke="#76B900" stroke-width="2" rx="4"/>
-  <text x="120" y="105" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Stage 01</text>
+  <text x="120" y="105" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Stage 0-1</text>
   <text x="120" y="125" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Targets &amp;</text>
   <text x="120" y="141" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Architecture</text>
   
