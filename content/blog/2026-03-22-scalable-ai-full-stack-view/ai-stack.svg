@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="550" viewBox="0 0 650 550">
+  <!-- Title -->
+  <text x="325" y="30" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Modern AI Stack</text>
+  
+  <!-- Layer 1: Workloads -->
+  <rect x="100" y="60" width="450" height="80" fill="#e8f5d8" stroke="#76B900" stroke-width="2" rx="4"/>
+  <text x="325" y="90" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Workloads</text>
+  <text x="325" y="110" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">Data, training/post-training, evaluation,</text>
+  <text x="325" y="126" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">serving, monitoring, safety</text>
+  
+  <!-- Layer 2: Frameworks & Engines -->
+  <rect x="100" y="160" width="450" height="90" fill="#d4edff" stroke="#0078D4" stroke-width="2" rx="4"/>
+  <text x="325" y="185" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Frameworks &amp; Engines</text>
+  <text x="325" y="205" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">PyTorch/JAX, NeMo AutoModel,</text>
+  <text x="325" y="221" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">Megatron/FSD-P/DeepSpeed,</text>
+  <text x="325" y="237" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">Dynamo+TRT-LLM, vLLM/SGLang/TGI</text>
+  
+  <!-- Layer 3: Distributed Compute -->
+  <rect x="100" y="270" width="450" height="70" fill="#ffe8d4" stroke="#D83B01" stroke-width="2" rx="4"/>
+  <text x="325" y="295" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Distributed Compute</text>
+  <text x="325" y="315" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">Ray, Spark, custom distributed services</text>
+  <text x="325" y="331" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">Multi-node coordination &amp; scheduling</text>
+  
+  <!-- Layer 4: Orchestration -->
+  <rect x="100" y="360" width="450" height="70" fill="#f3e8ff" stroke="#8661C5" stroke-width="2" rx="4"/>
+  <text x="325" y="385" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Orchestration</text>
+  <text x="325" y="405" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">Kubernetes, SLURM, VMs</text>
+  <text x="325" y="421" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">Resource allocation &amp; cluster management</text>
+  
+  <!-- Layer 5: Compute Substrate -->
+  <rect x="100" y="450" width="450" height="80" fill="#fff0f0" stroke="#C50F1F" stroke-width="2" rx="4"/>
+  <text x="325" y="478" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Compute Substrate</text>
+  <text x="325" y="498" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">GPUs, networking (NVLink, InfiniBand),</text>
+  <text x="325" y="514" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">storage, cloud providers, on-prem clusters</text>
+  
+  <!-- Arrows indicating data flow -->
+  <defs>
+    <marker id="arrow-down" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto">
+      <polygon points="0,0 10,0 5,10" fill="#666"/>
+    </marker>
+  </defs>
+  
+  <!-- Side annotation -->
+  <text x="580" y="295" font-family="Arial, sans-serif" font-size="10" text-anchor="start" fill="#666" font-style="italic">When something</text>
+  <text x="580" y="310" font-family="Arial, sans-serif" font-size="10" text-anchor="start" fill="#666" font-style="italic">breaks, this tells</text>
+  <text x="580" y="325" font-family="Arial, sans-serif" font-size="10" text-anchor="start" fill="#666" font-style="italic">you which layer</text>
+  <text x="580" y="340" font-family="Arial, sans-serif" font-size="10" text-anchor="start" fill="#666" font-style="italic">to inspect</text>
+  
+  <!-- Arrow pointing to annotation -->
+  <line x1="570" y1="315" x2="555" y2="315" stroke="#666" stroke-width="1" marker-end="url(#arrow-down)" transform="rotate(180 562.5 315)"/>
+</svg>

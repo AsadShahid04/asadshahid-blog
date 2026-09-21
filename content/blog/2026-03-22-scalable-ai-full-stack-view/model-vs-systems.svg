@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="400" viewBox="0 0 750 400">
+  <!-- Title -->
+  <text x="375" y="30" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Two Views You Must Hold Simultaneously</text>
+  
+  <!-- Model View -->
+  <rect x="50" y="70" width="310" height="240" fill="#e8f5d8" stroke="#76B900" stroke-width="2" rx="4"/>
+  <text x="205" y="100" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Model View</text>
+  <text x="205" y="120" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#76B900" font-weight="bold">Optimize for Quality</text>
+  
+  <text x="70" y="150" font-family="Arial, sans-serif" font-size="12" text-anchor="start" fill="#1e1e1e" font-weight="bold">Focus:</text>
+  <text x="70" y="170" font-family="Arial, sans-serif" font-size="11" text-anchor="start" fill="#666">• Loss, benchmarks, behavior</text>
+  <text x="70" y="188" font-family="Arial, sans-serif" font-size="11" text-anchor="start" fill="#666">• Scaling on target distribution</text>
+  <text x="70" y="206" font-family="Arial, sans-serif" font-size="11" text-anchor="start" fill="#666">• Data curation for capabilities</text>
+  <text x="70" y="224" font-family="Arial, sans-serif" font-size="11" text-anchor="start" fill="#666">• Metric stabilization</text>
+  
+  <text x="70" y="252" font-family="Arial, sans-serif" font-size="11" text-anchor="start" fill="#cc0000" font-weight="bold">Risk if only this view:</text>
+  <text x="70" y="270" font-family="Arial, sans-serif" font-size="10" text-anchor="start" fill="#cc0000">Great weights that can't hit</text>
+  <text x="70" y="285" font-family="Arial, sans-serif" font-size="10" text-anchor="start" fill="#cc0000">latency, memory, or cost budgets</text>
+  
+  <!-- Systems View -->
+  <rect x="390" y="70" width="310" height="240" fill="#d4edff" stroke="#0078D4" stroke-width="2" rx="4"/>
+  <text x="545" y="100" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#1e1e1e" font-weight="bold">Systems View</text>
+  <text x="545" y="120" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#0078D4" font-weight="bold">Optimize for Constraints</text>
+  
+  <text x="410" y="150" font-family="Arial, sans-serif" font-size="12" text-anchor="start" fill="#1e1e1e" font-weight="bold">Focus:</text>
+  <text x="410" y="170" font-family="Arial, sans-serif" font-size="11" text-anchor="start" fill="#666">• Latency, throughput, memory</text>
+  <text x="410" y="188" font-family="Arial, sans-serif" font-size="11" text-anchor="start" fill="#666">• Cost per request/token</text>
+  <text x="410" y="206" font-family="Arial, sans-serif" font-size="11" text-anchor="start" fill="#666">• SLOs and reliability</text>
+  <text x="410" y="224" font-family="Arial, sans-serif" font-size="11" text-anchor="start" fill="#666">• Architecture fits constraints</text>
+  
+  <text x="410" y="252" font-family="Arial, sans-serif" font-size="11" text-anchor="start" fill="#cc0000" font-weight="bold">Risk if only this view:</text>
+  <text x="410" y="270" font-family="Arial, sans-serif" font-size="10" text-anchor="start" fill="#cc0000">Efficient model that can't learn</text>
+  <text x="410" y="285" font-family="Arial, sans-serif" font-size="10" text-anchor="start" fill="#cc0000">enough to be useful</text>
+  
+  <!-- Double arrow between views -->
+  <defs>
+    <marker id="arrow-left" markerWidth="10" markerHeight="10" refX="1" refY="5" orient="auto">
+      <polygon points="10,0 0,5 10,10" fill="#666"/>
+    </marker>
+    <marker id="arrow-right" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <polygon points="0,0 10,5 0,10" fill="#666"/>
+    </marker>
+  </defs>
+  
+  <line x1="360" y1="180" x2="390" y2="180" stroke="#666" stroke-width="2" marker-end="url(#arrow-right)"/>
+  <line x1="390" y1="200" x2="360" y2="200" stroke="#666" stroke-width="2" marker-end="url(#arrow-left)"/>
+  
+  <!-- Bottom message -->
+  <rect x="100" y="330" width="550" height="50" fill="#fff9e6" stroke="#666" stroke-width="1.5" rx="4"/>
+  <text x="375" y="350" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#1e1e1e" font-weight="bold">The Discipline:</text>
+  <text x="375" y="368" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">Hold both views simultaneously. Make explicit trade-offs. Measure relentlessly.</text>
+</svg>

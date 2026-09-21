@@ -1,6 +1,6 @@
 ---
 title: "Hello World — Why I'm Writing About AI Infrastructure"
-date: 2026-03-25
+date: 2026-03-20
 tags:
   - personal
   - ai-infrastructure
@@ -15,7 +15,7 @@ This is the first post on my blog. Let me tell you why I'm here and what to expe
 
 ## Who I Am
 
-I'm Asad — a senior at UC Berkeley studying Statistics & Data Science. By day, I'm a software engineering intern at SanDisk building enterprise AI search systems. By night (and weekends), I'm an open source contributor to [NVIDIA Dynamo](https://github.com/ai-dynamo/dynamo), the distributed LLM serving platform that powers companies like Perplexity, Together AI, Voyage AI, and Groq.
+I'm Asad — a senior at UC Berkeley studying Statistics & Data Science. By day, I'm a software engineering intern at Tesla building enterprise AI search systems. By night (and weekends), I'm an open source contributor to [NVIDIA Dynamo](https://github.com/ai-dynamo/dynamo), the distributed LLM serving platform that powers companies like Perplexity, Together AI, Voyage AI, and Groq.
 
 Before this, I spent a summer at HPE building vulnerability triage systems using NVIDIA's Container Security Blueprint on Kubernetes, and a summer at Genentech building RAG applications for clinical protocol authoring.
 
@@ -57,4 +57,4 @@ Let's go.
 
 ---
 
-*Next up: "The Full-Stack View of AI: Why Infrastructure Determines Intelligence" — a deep dive into Lecture 1 of Scalable AI.*
+*Read next: [The Full-Stack View of AI: Why Infrastructure Determines Intelligence](../2026-03-22-scalable-ai-full-stack-view/) — a deep dive into Lecture 1 of Scalable AI.*
